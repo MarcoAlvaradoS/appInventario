@@ -1,0 +1,130 @@
+#: import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+
+<ScreenManager1>:
+    Ui:
+        id: UiId
+#    Ventas:
+#        id: Ventasid
+    Inventario:
+        id: InventarioId
+#    Producto:
+#        id: ProductoId
+    Tienda:
+        id: TiendaId
+
+<ElementCard@MDCard>:
+    text: ''
+    radius: '10dp'
+    spacing: '10dp'
+    padding: '10dp'
+    line_color: 0,0,1,1
+    ripple_behavior: True
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: root.text
+            text_color: 'black'
+            font_size: 50
+            halign: 'center'
+
+<Ui>:
+    name: 'UI'
+    MDScreen:
+        name: 'Principal'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hint: 1, .1 #x,y}
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 1,0,1,1
+                    MDLabel:
+                        text: 'Menú principal'
+                        font_size: 50
+                        halign: 'center'
+            MDGridLayout:
+                size_hint: 1, .9 #x,y
+                cols: 1
+                padding: '25dp'
+                spacing: '25dp'
+
+                ElementCard:
+                    text: 'Inventario'
+                    on_release:
+                        app.root.current = 'Inventario'
+                        root.manager.transition.direction = 'left'
+
+                ElementCard:
+                    text: 'Tienda'
+                    on_release:
+                        app.root.current = 'Tienda'
+                        root.manager.transition.direction = 'left'
+
+<Inventario>:
+    name: 'Inventario'
+    MDScreen:
+        name: 'Principal'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hint: 1, .1 #x,y}
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 1,0,1,1
+                    MDLabel:
+                        text: 'Inventario'
+                        font_size: 50
+                        halign: 'center'
+            MDGridLayout:
+                size_hint: 1, .9 #x,y
+                cols: 1
+                padding: '25dp'
+                spacing: '25dp'
+
+                ElementCard:
+                    text: 'Atras'
+                    on_release:
+                        app.root.current = 'UI'
+                        root.manager.transition.direction = 'left'
+
+                ElementCard:
+                    text: 'Tienda'
+                    on_release:
+                        app.root.current = 'Tienda'
+                        root.manager.transition.direction = 'left'
+
+<Tienda>:
+    name: 'Tienda'
+    MDScreen:
+        name: 'Principal'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hint: 1, .1 #x,y}
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 1,0,1,1
+                    MDLabel:
+                        text: 'Tienda'
+                        font_size: 50
+                        halign: 'center'
+            MDGridLayout:
+                size_hint: 1, .9 #x,y
+                cols: 1
+                padding: '25dp'
+                spacing: '25dp'
+
+                ElementCard:
+                    text: 'Atras'
+                    on_release:
+                        app.root.current = 'UI'
+                        root.manager.transition.direction = 'left'
+
+                ElementCard:
+                    text: 'Inventario'
+                    on_release:
+                        app.root.current = 'Inventario'
+                        root.manager.transition.direction = 'left'

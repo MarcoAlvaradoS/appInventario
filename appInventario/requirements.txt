@@ -1,0 +1,4 @@
+pymongo~=4.3.3
+kivymd~=1.1.1
+Kivy~=2.1.0
+firebase~=4.0.1

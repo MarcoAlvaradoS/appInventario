@@ -1,0 +1,126 @@
+#:import images_path kivymd.images_path
+<ScreenManager1>:
+    PreviousMDIcons:
+        id: UiId
+    Prueba:
+        id: Prueba
+
+<ElementCard1>:
+    orientation: 'vertical'
+    pos_hint: {'center_x': .5, 'center_y':.5}
+    size_hint: 1, 0.2
+    height: '20dp'
+    radius: '10dp'
+    spacing: '10dp'
+    padding: '10dp'
+    line_color: 0,0,1,1
+    ripple_behavior: True
+    radius: 20
+    on_release: app.root.presion(root.nombre, root.img, root.descripcion, root.Inventario, root.sku, root.color, root.precio, root._id, root.precio_compra)
+    on_release: app.root.menu_item_dep(root.departamento, root.categoria, root.subcategoria)
+    MDLabel:
+        text: root.nombre
+        halign:'center'
+    #FitImage:
+    #    source: root.img
+    #    size_hint_y: 3
+    #    radius: '10dp'
+    MDLabel:
+        text: root.descripcion
+        halign:'center'
+    MDLabel:
+        text: root.Inventario
+        halign:'center'
+
+<CustomOneLineIconListItem>
+
+    IconLeftWidget:
+        icon: root.icon
+
+
+<PreviousMDIcons>
+    name: 'PreviousMDIcons'
+    MDScreen:
+        name: 'Principal'
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(10)
+            padding: dp(20)
+
+            MDBoxLayout:
+                adaptive_height: True
+
+                MDIconButton:
+                    icon: 'arrow-u-left-top-bold'
+                    on_release: app.root.current = 'Inventario'
+
+                MDIconButton:
+                    icon: 'magnify'
+
+                MDTextField:
+                    id: search_field
+                    hint_text: 'Search icon'
+                    on_text: root.set_list_md_icons(self.text, True)
+
+                CustomRecycleView:
+                    viewclass: 'ElementCard1'
+                    id: recyleview
+                    RecycleGridLayout:
+                        cols: 3
+                        padding: '10dp'
+                        spacing: '10dp'
+                        default_size: None, '300dp'
+                        default_size_hint: 1, None
+                        size_hint_y: None
+                        height: self.minimum_height
+                        MDIconButton:
+
+            RecycleView:
+                id: rv
+                key_viewclass: 'viewclass'
+                key_size: 'height'
+
+                RecycleBoxLayout:
+                    padding: dp(10)
+                    default_size: None, dp(48)
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: 'vertical'
+
+
+<Inventario>
+    name: 'Inventario'
+    MDScreen:
+        name: 'Principal2'
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(10)
+            padding: dp(20)
+
+            MDBoxLayout:
+                adaptive_height: True
+
+                MDIconButton:
+                    icon: 'magnify'
+
+                MDTextField:
+                    id: search_field
+                    hint_text: 'Search icon'
+                    on_text: root.set_list_md_icons(self.text, True)
+
+            CustomRecycleView:
+                viewclass: 'ElementCard1'
+                id: recyleview
+                RecycleGridLayout:
+                    cols: 3
+                    padding: '10dp'
+                    spacing: '10dp'
+                    default_size: None, '300dp'
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    MDIconButton:
+
+
+

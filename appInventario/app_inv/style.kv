@@ -1,0 +1,78 @@
+#: import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+
+<CustomButton@Button>
+    text: self.text
+    markup: True
+    font_size: 20
+    size_hint: (None, None)
+    size: (320, 50)
+    background_color: (0, 0, 0, 0)
+    color: self.color
+    #on_press: self.on_press
+    fondo_color: (0,0,0,0)
+    on_release:
+        app.root.transition = RiseInTransition()
+    canvas.before:
+        Color:
+            rgba: root.fondo_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius:  [35,]
+    BoxLayout:
+        Label:
+            text: root.text
+            halign: 'center'
+
+
+
+
+<Ui>:
+    id: val
+    orientation: 'vertical'
+    spacing: dp(12)
+    padding: [dp(12),dp(12),dp(12),dp(12)]
+
+    BoxLayout:
+        pantalla: entry
+        size_hint: 1, 0.25 # Espacio de la pantalla (1, porcentaje en vertical)
+        spacing: dp(12) # Margen
+        TextInput:
+            id: entry
+            halign: 'right'
+            font_size: 50
+            foreground_color: val.white
+            cursor_color: val.white
+            background_color: val.black
+
+    GridLayout:
+        size_hint: 1,0.60
+        cols: 1
+        spacing: dp(12)
+        CustomButton:
+            text: 'Inventario'
+            #on_press: app.mas_menos(entry.text)
+            fondo_color: val.gray
+            color: val.black
+        CustomButton:
+            text: 'Ventas'
+            on_press: app.porcentaje(entry.text)
+            fondo_color: val.gray
+            color: val.black
+        CustomButton:
+            text: ''
+            on_press: entry.text += '/'
+            fondo_color: val.orange
+            color: val.white
+
+###
+    GridLayout:
+        size_hint: 1,0.15
+        spacing: dp(12)
+        cols: 3
+        CustomButton:
+            text: '5'
+            on_press: entry.text += self.text
+            fondo_color: val.gray_black
+            color: val.white
+            size: (152, 70)
