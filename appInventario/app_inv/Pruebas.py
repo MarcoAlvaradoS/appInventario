@@ -8,10 +8,30 @@ from kivymd.uix.screenmanager import ScreenManager
 from kivymd.uix.screen import MDScreen
 
 Builder.load_string('''
+#: import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+
 <ScreenManager1>:
+    Menu:
+        id: MenuId
     Ui:
         id: UiId
-        
+    
+
+<ElementCard@MDCard>:
+    text: ''
+    radius: '10dp'
+    spacing: '10dp'
+    padding: '10dp'
+    line_color: 0,0,1,1
+    ripple_behavior: True
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: root.text
+            text_color: 'black'
+            font_size: 50
+            halign: 'center'
+            
 <ElementCard1>:
     orientation: 'vertical'
     pos_hint: {'center_x': .5, 'center_y':.5}
@@ -38,6 +58,36 @@ Builder.load_string('''
     MDLabel:
         text: root.Inventario
         halign:'center'
+        
+<Menu>:
+    name: 'menu'
+    MDScreen:
+        name: 'Principal'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDBoxLayout:
+                size_hint: 1, .1 #x,y}
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    line_color: 1,0,1,1
+                    MDLabel:
+                        text: 'Menú principal'
+                        font_size: 50
+                        halign: 'center'
+            MDGridLayout:
+                size_hint: 1, .9 #x,y
+                cols: 1
+                padding: '25dp'
+                spacing: '25dp'
+
+                ElementCard:
+                    text: 'Productos'
+                    on_release:
+                        app.root.current = 'Ui'
+                        root.manager.transition.direction = 'left'
+                ElementCard:
+                    text: 'Tienda'
 
 <Ui>:
     name: 'Ui'
@@ -90,6 +140,9 @@ class ScreenManager1(ScreenManager):
     pass
 
 class Ui(MDScreen):
+    pass
+
+class Menu(MDScreen):
     pass
 
 class TestApp(MDApp):
