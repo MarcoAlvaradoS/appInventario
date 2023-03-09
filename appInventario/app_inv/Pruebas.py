@@ -15,24 +15,18 @@ Builder.load_file('inv.kv')
 class RV(RecycleView):
     def __init__(self, **kwargs):
         super(RV, self).__init__(**kwargs)
-        global productos, departamentos, categorias, subcategorias, conn_prods
-        #firebase_mary = firebase.FirebaseApplication('https://jarcieria-mary-default-rtdb.firebaseio.com/', None)
-        #productos_firebase = firebase_mary.get('/my_endpoint', '')
-        #productos = list(productos_firebase.values())
-        conn = pymongo.MongoClient("mongodb+srv://Jarcieria_Mary:8d37s9X0Ec8JbJRX@clusterjar.pp4z5hn.mongodb.net/?retryWrites=true&w=majority")
-        conn_prods = conn.get_database('Jarcieria').Productos
-        productos = conn_prods.find()
-        productos = list(productos)
+        global productos, departamentos, categorias, subcategorias, conn_prods, firebase_mary
+        firebase_mary = firebase.FirebaseApplication('https://jarcieria-mary-default-rtdb.firebaseio.com/', None)
+        productos_firebase = firebase_mary.get('/my_endpoint', '')
+        productos = list(productos_firebase.values())
         departamentos = ['Plasticos', 'Limpieza']
         categorias = ['Baño', 'Ropa', 'Casa', 'Jardin', 'Personal']
         subcategorias = ['Lazos', 'Zacates', 'Pinzas', 'Termos', 'Macetas', 'Tuppers', 'Recipientes', 'Atomizadores',
                         'Fibras', 'Utensilios', 'Coladores', 'Escobas', 'Escobetillas', 'Recogedores', 'Ganchos',
                         'Lavabo', 'Cocina', 'Habitacion']
-        # for producto,_id in zip(productos, productos_firebase.keys()):
-        #     producto['img'] = producto['img'].replace('C:/Users/Marco/Documents/Jarcieria/Imgs/', 'Imgs/')
-        #     producto['_id'] = _id
-        for producto in productos:
+        for producto,_id in zip(productos, productos_firebase.keys()):
             producto['img'] = producto['img'].replace('C:/Users/Marco/Documents/Jarcieria/Imgs/', 'Imgs/')
+            producto['_id'] = _id
 
         self.data = productos
 
@@ -48,7 +42,7 @@ class ElementCard1(MDCard):
     precio = StringProperty()
     precio_compra = StringProperty()
     sku = StringProperty()
-    #_id = StringProperty()
+    _id = StringProperty()
     pass
 
 class ScreenManager1(ScreenManager):
@@ -103,27 +97,26 @@ class ScreenManager1(ScreenManager):
         menu.dismiss()
 
     def update_mongo(self):
-        producto = conn_prods.find_one({'_id': id_current_prod})
-        producto['nombre'] = self.ids.ProductoId.ids.PCId.ids.nombre_id.text
-        producto['descripcion'] = self.ids.ProductoId.ids.PCId.ids.descripcion_id.text
-        producto['sku'] = self.ids.ProductoId.ids.PCId.ids.sku_id.text
-        producto['color'] = self.ids.ProductoId.ids.PCId.ids.color_id.text
-        producto['precio'] = self.ids.ProductoId.ids.PCId.ids.precio_id.text
-        producto['Inventario'] = self.ids.ProductoId.ids.PCId.ids.inventario_id.text
-        producto['precio_compra'] = self.ids.ProductoId.ids.PCId.ids.precio_compra_id.text
-        producto['departamento'] = self.ids.ProductoId.ids.PCId.ids.drop_item_departamento.ids.label_item.text
-        producto['categoria'] = self.ids.ProductoId.ids.PCId.ids.drop_item_categoria.ids.label_item.text
-        producto['subcategoria'] = self.ids.ProductoId.ids.PCId.ids.drop_item_subcategoria.ids.label_item.text
-        conn_prods.update_one({'_id': id_current_prod}, {"$set": producto}, upsert=False)
+        prod_id = '/my_endpoint/' + id_current_prod
+        firebase_mary.put(prod_id, 'nombre', self.ids.ProductoId.ids.PCId.ids.nombre_id.text)
+        firebase_mary.put(prod_id, 'descripcion', self.ids.ProductoId.ids.PCId.ids.descripcion_id.text)
+        firebase_mary.put(prod_id, 'sku', self.ids.ProductoId.ids.PCId.ids.sku_id.text)
+        firebase_mary.put(prod_id, 'color', self.ids.ProductoId.ids.PCId.ids.color_id.text)
+        firebase_mary.put(prod_id, 'precio', self.ids.ProductoId.ids.PCId.ids.precio_id.text)
+        firebase_mary.put(prod_id, 'Inventario', self.ids.ProductoId.ids.PCId.ids.inventario_id.text)
+        firebase_mary.put(prod_id, 'precio_compra', self.ids.ProductoId.ids.PCId.ids.precio_compra_id.text)
+        firebase_mary.put(prod_id, 'departamento', self.ids.ProductoId.ids.PCId.ids.drop_item_departamento.ids.label_item.text)
+        firebase_mary.put(prod_id, 'categoria', self.ids.ProductoId.ids.PCId.ids.drop_item_categoria.ids.label_item.text)
+        firebase_mary.put(prod_id, 'subcategoria', self.ids.ProductoId.ids.PCId.ids.drop_item_subcategoria.ids.label_item.text)
 
-        productos = conn_prods.find()
-        productos = list(productos)
-        for producto in productos:
+        productos_firebase = firebase_mary.get('/my_endpoint', '')
+        productos = list(productos_firebase.values())
+
+        for producto,_id in zip(productos, productos_firebase.keys()):
             producto['img'] = producto['img'].replace('C:/Users/Marco/Documents/Jarcieria/Imgs/', 'Imgs/')
+            producto['_id'] = _id
 
         self.ids.UiId.ids.recyleview.data = productos
-        #)
-        # print(self.ids.ProductoId.ids.PCId.ids.drop_item_departamento.ids.label_item.text)
 
     def presion(self, nombre, img, des, inv, sku, col, precio, id, precio_compra):
         global id_current_prod
@@ -165,7 +158,7 @@ class ProductoCard(MDCard):
     precio = StringProperty()
     precio_compra = StringProperty()
     sku = StringProperty()
-    #_id = StringProperty()
+    _id = StringProperty()
 
 class TestApp(MDApp):
     def build(self):
