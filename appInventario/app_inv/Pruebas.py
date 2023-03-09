@@ -8,7 +8,8 @@ from kivymd.uix.screenmanager import ScreenManager
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.metrics import dp
-
+from kivy.core.window import Window
+Window.size = (720, 720)
 
 
 Builder.load_string('''
@@ -42,7 +43,7 @@ Builder.load_string('''
             #line_color: 0,0,1,1
             MDIconButton:
                 icon: 'arrow-u-left-top-bold'
-                on_release: app.root.current = 'Inventario'
+                on_release: app.root.current = 'Ui'
             MDTextField:
                 id: nombre_id
                 adaptive_size: True
@@ -217,7 +218,7 @@ Builder.load_string('''
         MDBoxLayout:
             orientation: 'vertical'
             MDBoxLayout:
-                size_hint: 1, .1 #x,y}
+                size_hint: 1, .1 #x,y
                 MDCard:
                     radius: '10dp'
                     padding: '10dp'
@@ -254,8 +255,6 @@ Builder.load_string('''
                 text: 'Inventario'
                 font_size: 20
                 halign: 'center'
-
-
             MDBoxLayout:
                 orientation: 'horizontal'
                 size_hint: .7, .12
@@ -419,6 +418,11 @@ class ScreenManager1(ScreenManager):
     pass
 
 class Ui(MDScreen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+    def search(self):
+        self.ids.recyleview.data = [i for i in productos if
+                                    self.ids.InventarioSearch.text in i['nombre']]
     pass
 
 class Menu(MDScreen):
