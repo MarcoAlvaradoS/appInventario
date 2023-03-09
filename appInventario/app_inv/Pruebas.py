@@ -108,7 +108,6 @@ class ScreenManager1(ScreenManager):
         firebase_mary.put(prod_id, 'departamento', self.ids.ProductoId.ids.PCId.ids.drop_item_departamento.ids.label_item.text)
         firebase_mary.put(prod_id, 'categoria', self.ids.ProductoId.ids.PCId.ids.drop_item_categoria.ids.label_item.text)
         firebase_mary.put(prod_id, 'subcategoria', self.ids.ProductoId.ids.PCId.ids.drop_item_subcategoria.ids.label_item.text)
-
         productos_firebase = firebase_mary.get('/my_endpoint', '')
         productos = list(productos_firebase.values())
 
