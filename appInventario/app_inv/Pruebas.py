@@ -4,8 +4,14 @@ from kivy.uix.recycleview import RecycleView
 from kivymd.uix.card import MDCard
 from kivy.properties import StringProperty
 from firebase import firebase
+from kivymd.uix.screenmanager import ScreenManager
+from kivymd.uix.screen import MDScreen
 
 Builder.load_string('''
+<ScreenManager1>:
+    Ui:
+        id: UiId
+        
 <ElementCard1>:
     orientation: 'vertical'
     pos_hint: {'center_x': .5, 'center_y':.5}
@@ -32,15 +38,18 @@ Builder.load_string('''
     MDLabel:
         text: root.Inventario
         halign:'center'
-            
-<RV>:
-    viewclass: 'ElementCard1'
-    RecycleBoxLayout:
-        default_size: None, dp(56)
-        default_size_hint: 1, None
-        size_hint_y: None
-        height: self.minimum_height
-        orientation: 'vertical'
+
+<Ui>:
+    name: 'Ui'
+    MDScreen:        
+        RV:
+            viewclass: 'ElementCard1'
+            RecycleBoxLayout:
+                default_size: None, dp(56)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
 ''')
 
 class RV(RecycleView):
@@ -75,8 +84,16 @@ class ElementCard1(MDCard):
     _id = StringProperty()
     pass
 
+class ScreenManager1(ScreenManager):
+    def __init__(self, **kwargs):
+        super(ScreenManager1, self).__init__(**kwargs)
+    pass
+
+class Ui(MDScreen):
+    pass
+
 class TestApp(MDApp):
     def build(self):
-        return RV()
+        return ScreenManager1()
 
 TestApp().run()
