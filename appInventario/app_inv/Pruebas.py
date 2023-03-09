@@ -7,19 +7,31 @@ from firebase import firebase
 
 Builder.load_string('''
 <ElementCard1>:
-    text: ''
+    orientation: 'vertical'
+    pos_hint: {'center_x': .5, 'center_y':.5}
+    size_hint: 1, 0.2
+    height: '20dp'
     radius: '10dp'
     spacing: '10dp'
     padding: '10dp'
     line_color: 0,0,1,1
     ripple_behavior: True
-    MDBoxLayout:
-        orientation: 'vertical'
-        MDLabel:
-            text: root.nombre
-            text_color: 'black'
-            font_size: 50
-            halign: 'center'
+    radius: 20
+    on_release: app.root.presion(root.nombre, root.img, root.descripcion, root.Inventario, root.sku, root.color, root.precio, root._id, root.precio_compra)
+    on_release: app.root.menu_item_dep(root.departamento, root.categoria, root.subcategoria)
+    MDLabel:
+        text: root.nombre
+        halign:'center'
+    FitImage:
+        source: root.img
+        size_hint_y: 3
+        radius: '10dp'
+    MDLabel:
+        text: root.descripcion
+        halign:'center'
+    MDLabel:
+        text: root.Inventario
+        halign:'center'
             
 <RV>:
     viewclass: 'ElementCard1'
@@ -50,6 +62,17 @@ class RV(RecycleView):
 
 class ElementCard1(MDCard):
     nombre = StringProperty()
+    img = StringProperty()
+    descripcion = StringProperty()
+    Inventario = StringProperty()
+    departamento = StringProperty()
+    categoria = StringProperty()
+    subcategoria = StringProperty()
+    color = StringProperty()
+    precio = StringProperty()
+    precio_compra = StringProperty()
+    sku = StringProperty()
+    _id = StringProperty()
     pass
 
 class TestApp(MDApp):
