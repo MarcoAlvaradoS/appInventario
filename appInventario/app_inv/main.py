@@ -7,7 +7,7 @@ from kivymd.uix.button import MDFlatButton
 from kivy.lang import Builder
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.label import MDLabel
-import pymongo
+#import pymongo
 from kivymd.uix.fitimage import FitImage
 from kivymd.uix.gridlayout import MDGridLayout
 from kivymd.uix.recycleview import MDRecycleView
