@@ -12,7 +12,7 @@ from kivy.core.window import Window
 Window.size = (720, 720)
 
 
-Builder.load_string('''
+"""Builder.load_string('''
 #: import RiseInTransition kivy.uix.screenmanager.RiseInTransition
 
 <ScreenManager1>:
@@ -298,6 +298,9 @@ Builder.load_string('''
             ProductoCard:
                 id: PCId
 ''')
+"""
+
+Builder.load_file('inv.kv')
 
 class RV(RecycleView):
     def __init__(self, **kwargs):
