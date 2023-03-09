@@ -274,7 +274,6 @@ Builder.load_string('''
                     halign:'left'
                     valign:'top'
                     on_release: root.search()
-
             RV:
                 viewclass: 'ElementCard1'
                 id: recyleview
