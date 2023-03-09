@@ -1,15 +1,27 @@
-from kivy.app import App
+from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.uix.recycleview import RecycleView
-from kivy.uix.button import Button
+from kivymd.uix.card import MDCard
 from kivy.properties import StringProperty
 
 Builder.load_string('''
-<ElementCard@Button1>:
-    text: root.nombre
+<ElementCard1>:
+    text: ''
+    radius: '10dp'
+    spacing: '10dp'
+    padding: '10dp'
+    line_color: 0,0,1,1
+    ripple_behavior: True
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: root.nombre
+            text_color: 'black'
+            font_size: 50
+            halign: 'center'
             
 <RV>:
-    viewclass: 'ElementCard'
+    viewclass: 'ElementCard1'
     RecycleBoxLayout:
         default_size: None, dp(56)
         default_size_hint: 1, None
@@ -23,11 +35,11 @@ class RV(RecycleView):
         super(RV, self).__init__(**kwargs)
         self.data = [{'nombre': str(x)} for x in range(100)]
 
-class Button1(Button):
+class ElementCard1(MDCard):
     nombre = StringProperty()
     pass
 
-class TestApp(App):
+class TestApp(MDApp):
     def build(self):
         return RV()
 
