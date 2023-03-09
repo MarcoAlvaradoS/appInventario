@@ -9,8 +9,6 @@ from kivy import platform
 
 from kivy.lang import Builder
 
-if platform == 'android':
-    from android
 Builder.load_file('app.kv')
 
 class ScreenManager1(ScreenManager):
