@@ -3,6 +3,7 @@ from kivy.lang import Builder
 from kivy.uix.recycleview import RecycleView
 from kivymd.uix.card import MDCard
 from kivy.properties import StringProperty
+from firebase import firebase
 
 Builder.load_string('''
 <ElementCard1>:
@@ -33,7 +34,19 @@ Builder.load_string('''
 class RV(RecycleView):
     def __init__(self, **kwargs):
         super(RV, self).__init__(**kwargs)
-        self.data = [{'nombre': str(x)} for x in range(100)]
+        global productos, departamentos, categorias, subcategorias, conn_prods
+        firebase_mary = firebase.FirebaseApplication('https://jarcieria-mary-default-rtdb.firebaseio.com/', None)
+        productos_firebase = firebase_mary.get('/my_endpoint', '')
+        productos = list(productos_firebase.values())
+        departamentos = ['Plasticos', 'Limpieza']
+        categorias = ['Baño', 'Ropa', 'Casa', 'Jardin', 'Personal']
+        subcategorias = ['Lazos', 'Zacates', 'Pinzas', 'Termos', 'Macetas', 'Tuppers', 'Recipientes', 'Atomizadores',
+                        'Fibras', 'Utensilios', 'Coladores', 'Escobas', 'Escobetillas', 'Recogedores', 'Ganchos',
+                        'Lavabo', 'Cocina', 'Habitacion']
+        for producto,_id in zip(productos, productos_firebase.keys()):
+            producto['img'] = producto['img'].replace('C:/Users/Marco/Documents/Jarcieria/Imgs/', 'Imgs/')
+            producto['_id'] = _id
+        self.data = productos
 
 class ElementCard1(MDCard):
     nombre = StringProperty()
