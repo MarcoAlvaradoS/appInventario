@@ -242,15 +242,51 @@ Builder.load_string('''
 
 <Ui>:
     name: 'Ui'
-    MDScreen:        
-        RV:
-            viewclass: 'ElementCard1'
-            RecycleBoxLayout:
-                default_size: None, dp(56)
-                default_size_hint: 1, None
-                size_hint_y: None
-                height: self.minimum_height
-                orientation: 'vertical'
+    MDScreen:
+        MDBoxLayout:
+            orientation: 'vertical'
+            radius: '10dp'
+            padding: '10dp'
+            spacing: '10dp'
+
+            MDLabel:
+                size_hint: 1, .1 #x,y
+                text: 'Inventario'
+                font_size: 20
+                halign: 'center'
+
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                size_hint: .7, .12
+                halign: 'left'
+                MDTextField:
+                    id: InventarioSearch
+                    size_hint: .8, 1
+                    hint_text: "Nombre del producto"
+                    halign:'left'
+                    valign:'top'
+                    on_text: root.search()
+                MDIconButton:
+                    id: BotonInventarioBuscar
+                    size_hint: .2, 1
+                    icon: "database-search"
+                    halign:'left'
+                    valign:'top'
+                    on_release: root.search()
+
+            RV:
+                viewclass: 'ElementCard1'
+                id: recyleview
+                RecycleGridLayout:
+                    cols: 3
+                    padding: '10dp'
+                    spacing: '10dp'
+                    default_size: None, '300dp'
+                    default_size_hint: 1, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    MDIconButton:
                 
 <Producto>:
     name: 'Producto'
