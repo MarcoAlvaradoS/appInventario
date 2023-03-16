@@ -1,28 +1,59 @@
-from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.recycleview import RecycleView
+from kivy.metrics import dp
+from kivy.properties import StringProperty
+
+from kivymd.uix.list import OneLineIconListItem
+from kivymd.app import MDApp
+from kivymd.uix.menu import MDDropdownMenu
+
+KV = '''
+<IconListItem>
+
+    IconLeftWidget:
+        icon: root.icon
 
 
-Builder.load_string('''
-<RV>:
-    viewclass: 'Label'
-    RecycleBoxLayout:
-        default_size: None, dp(56)
-        default_size_hint: 1, None
-        size_hint_y: None
-        height: self.minimum_height
-        orientation: 'vertical'
-''')
+MDScreen
 
-class RV(RecycleView):
+    MDDropDownItem:
+        id: drop_item
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        text: 'Item 0'
+        on_release: app.menu.open()
+'''
+
+
+class IconListItem(OneLineIconListItem):
+    icon = StringProperty()
+
+
+class Test(MDApp):
     def __init__(self, **kwargs):
-        super(RV, self).__init__(**kwargs)
-        self.data = [{'text': str(x)} for x in range(100)]
+        super().__init__(**kwargs)
+        self.screen = Builder.load_string(KV)
+        menu_items = [
+            {
+                "viewclass": "IconListItem",
+                "icon": "git",
+                "text": f"Item {i}",
+                "height": dp(56),
+                "on_release": lambda x=f"Item {i}": self.set_item(x),
+            } for i in range(5)
+        ]
+        self.menu = MDDropdownMenu(
+            caller=self.screen.ids.drop_item,
+            items=menu_items,
+            position="center",
+            width_mult=4,
+        )
+        self.menu.bind()
 
+    def set_item(self, text_item):
+        self.screen.ids.drop_item.set_item(text_item)
+        self.menu.dismiss()
 
-class TestApp(App):
     def build(self):
-        return RV()
+        return self.screen
 
-if __name__ == '__main__':
-    TestApp().run()
+
+Test().run()
