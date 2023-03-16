@@ -36,7 +36,7 @@
                 halign:'center'
                 valign: 'bot'
         FitImage:
-            size_hint: 1, 0.6
+            size_hint: 1, 0.5
             adaptive_size: True
             source: root.img
             size_hint_y: .5
@@ -44,128 +44,232 @@
             pos_hint: {'center_x': .5, 'center_y':.5}
             radius: '5dp'
         MDTextField:
-            size_hint: 1, 0.2
+            size_hint: 1, 0.3
             id: descripcion_id
             adaptive_size: True
+            multiline: True
             text: root.descripcion
             halign: 'center'
             valign: 'bot'
     MDCard:
         size_hint: 1, 0.5
-        #radius: '5dp'
-        #spacing: '5dp'
-        #padding: '5dp'
-        orientation: 'horizontal'
-        cols: 2
+        orientation: 'vertical'
+        cols: 3
+        rows:2
         line_color: 0,0,1,1
-        MDBoxLayout:
-            orientation: 'vertical'
-            valign:'top'
-            size_hint: .4, 1
-            MDGridLayout:
-                size_hint: 1, .33 #x,y
-                cols: 1
-                padding: '5dp'
-                spacing: '5dp'
-                MDLabel:
-                    font_size: '12sp'
-                    text: 'Departamento'
-                    size_hint: 1, .5
-                MDDropDownItem:
-                    id: drop_item_departamento
-                    font_size: '12sp'
-                    on_release: app.root.menu_dep.open()
-            MDGridLayout:
-                size_hint: 1, .34 #x,y
-                cols: 1
-                padding: '5dp'
-                spacing: '5dp'
-                MDLabel:
-                    text: 'Categoría'
-                    font_size: '12sp'
-                    size_hint: 1, .5
-                MDDropDownItem:
-                    id: drop_item_categoria
-                    font_size: '12sp'
-                    on_release: app.root.menu_cat.open()
-            MDGridLayout:
-                size_hint: 1, .33 #x,y
-                cols: 1
-                padding: '5dp'
-                spacing: '5dp'
-                MDLabel:
-                    text: 'Subcategoria'
-                    font_size: '12sp'
-                    size_hint: 1, .5
-                MDDropDownItem:
-                    id: drop_item_subcategoria
-                    font_size: '12sp'
-                    on_release: app.root.menu_subcat.open()
-        MDBoxLayout:
-            orientation: 'vertical'
-            pos_hint: {'center_x': .5, 'center_y':.5}
-            padding: '5dp'
+        MDCard:
+            size_hint: 1, 0.2
+            orientation: 'horizontal'
+            cols: 3
+            rows:2
+            line_color: 0,0,1,1
             MDBoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, 1
+                MDGridLayout:
+                    cols: 1
+                    padding: '5dp'
+                    spacing: '5dp'
+                    line_color: 0,0,1,1
+                    adaptive_size: True
+                    MDLabel:
+                        font_size: '15sp'
+                        text: 'Departamento'
+                        adaptive_size: True
+                        line_color: 0,0,1,1
+                    MDDropDownItem:
+                        id: drop_item_departamento
+                        font_size: '15sp'
+                        on_release: app.root.menu_dep.open()
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, 1
+                MDGridLayout:
+                    cols: 1
+                    padding: '5dp'
+                    spacing: '5dp'
+                    line_color: 0,0,1,1
+                    adaptive_size: True
+                    MDLabel:
+                        font_size: '15sp'
+                        text: 'Categoría'
+                        adaptive_size: True
+                    MDDropDownItem:
+                        id: drop_item_categoria
+                        font_size: '15sp'
+                        on_release: app.root.menu_cat.open()
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, 1
+                MDGridLayout:
+                    cols: 1
+                    padding: '5dp'
+                    spacing: '5dp'
+                    line_color: 0,0,1,1
+                    adaptive_size: True
+                    MDLabel:
+                        text: 'Subcategoria'
+                        font_size: '15sp'
+                        adaptive_size: True
+                    MDDropDownItem:
+                        id: drop_item_subcategoria
+                        font_size: '15sp'
+                        on_release: app.root.menu_subcat.open()
+
+        MDCard:
+            size_hint: 1, 0.8
+            orientation: 'vertical'
+            line_color: 0,1,1,1
+            MDCard:
+                size_hint: 1, 0.075
                 orientation: 'horizontal'
+                cols: 2
                 MDLabel:
-                    size_hint: .2, 1
+                    size_hint: 0.15, 1
                     text: 'SKU:'
+                    font_size: '20sp'
                 MDTextField:
                     id: sku_id
-                    size_hint: .8, 1
+                    font_size: '20sp'
+                    adaptive_size: True
                     halign:'left'
                     text: root.sku
-            MDBoxLayout:
+            MDCard:
+                size_hint: 1, 0.075
                 orientation: 'horizontal'
+                cols: 2
+                line_color: 0,1,1,1
                 MDLabel:
-                    size_hint: .2, .8
+                    size_hint: .2, 1
                     text: 'Color:'
-                    font_size: '13sp'
+                    font_size: '20sp'
                 MDTextField:
                     id: color_id
-                    size_hint: .8, .8
                     halign:'left'
                     text: root.color
-            MDBoxLayout:
+                    adaptive_size: True
+                    font_size: '20sp'
+            MDCard:
+                size_hint: 1, 0.075
                 orientation: 'horizontal'
-                spacing: '10dp'
-                halign:'left'
+                cols: 4
+                line_color: 0,1,1,1
                 MDLabel:
-                    size_hint: .2, 1
+                    size_hint: .25, 1
                     text: 'Precio venta:'
-                    font_size: '12sp'
+                    font_size: '15sp'
                 MDTextField:
+                    size_hint: .25, None
+                    adaptive_size: True
                     id: precio_id
-                    size_hint: .2, 1
                     halign:'left'
                     text: root.precio
+                    font_size: '20sp'
                 MDLabel:
-                    size_hint: .24, 1
+                    size_hint: .3, 1
                     text: 'Precio compra:'
-                    font_size: '12sp'
+                    font_size: '15sp'
                 MDTextField:
                     id: precio_compra_id
-                    size_hint: .36, 1
+                    adaptive_size: True
+                    size_hint: .2, None
                     halign:'left'
                     text: root.precio_compra
-                    font_size: '12sp'
-            MDBoxLayout:
+                    font_size: '20sp'
+            MDCard:
+                size_hint: 1, 0.075
                 orientation: 'horizontal'
-                spacing: '10dp'
-                MDLabel:
-                    size_hint: .26, 1
-                    text: 'Inventario:'
-                    font_size: '12sp'
-                MDTextField:
-                    id: inventario_id
-                    size_hint: .14, .75
-                    text: root.Inventario
-                    font_size: '15sp'
-                MDRectangleFlatButton:
-                    size_hint: .6, .8
-                    text: 'Actualizar'
-                    on_release: app.root.update_mongo()
-                    on_release: app.root.current = 'Ui'
+                cols: 2
+                line_color: 0,1,1,1
+            MDCard:
+                size_hint: 1, 0.075
+                orientation: 'horizontal'
+                cols: 4
+                line_color: 0,1,1,1
+#            MDBoxLayout:
+#                orientation: 'horizontal'
+#                line_color: 0,1,1,1
+#                MDGridLayout:
+#                    cols: 2
+#                    line_color: 1,0,1,1
+#                    adaptive_size: True
+#                    MDLabel:
+#                        adaptive_size: True
+#                        text: 'SKU:'
+#                    MDTextField:
+#                        id: sku_id
+#                        adaptive_size: True
+#                        halign:'left'
+#                        text: root.sku
+#            MDCard:
+#                #orientation: 'vertical'
+#                #pos_hint: {'center_x': .5, 'center_y':.5}
+#                padding: '5dp'
+#                adaptive_size: True
+#                line_color: 0,0,1,1
+#                MDBoxLayout:
+#                    orientation: 'horizontal'
+#                    adaptive_size: True
+#                    line_color: 0,0,1,1
+#                    MDLabel:
+#                        size_hint: .2, 1
+#                        text: 'SKU:'
+#                    MDTextField:
+#                        id: sku_id
+#                        size_hint: .8, 1
+#                        halign:'left'
+#                        text: root.sku
+#            MDBoxLayout:
+#                orientation: 'horizontal'
+#                MDLabel:
+#                    size_hint: .2, .8
+#                    text: 'Color:'
+#                    font_size: '13sp'
+#                MDTextField:
+#                    id: color_id
+#                    size_hint: .8, .8
+#                    halign:'left'
+#                    text: root.color
+#            MDBoxLayout:
+#                orientation: 'horizontal'
+#                spacing: '10dp'
+#                halign:'left'
+#                MDLabel:
+#                    size_hint: .2, 1
+#                    text: 'Precio venta:'
+#                    font_size: '12sp'
+#                MDTextField:
+#                    id: precio_id
+#                    size_hint: .2, 1
+#                    halign:'left'
+#                    text: root.precio
+#                MDLabel:
+#                    size_hint: .24, 1
+#                    text: 'Precio compra:'
+#                    font_size: '12sp'
+#                MDTextField:
+#                    id: precio_compra_id
+#                    size_hint: .36, 1
+#                    halign:'left'
+#                    text: root.precio_compra
+#                    font_size: '12sp'
+#            MDBoxLayout:
+#                orientation: 'horizontal'
+#                spacing: '10dp'
+#                MDLabel:
+#                    size_hint: .26, 1
+#                    text: 'Inventario:'
+#                    font_size: '12sp'
+#                MDTextField:
+#                    id: inventario_id
+#                    size_hint: .14, .75
+#                    text: root.Inventario
+#                    font_size: '15sp'
+#                MDRectangleFlatButton:
+#                    size_hint: .6, .8
+#                    text: 'Actualizar'
+#                    on_release: app.root.update_mongo()
+#                    on_release: app.root.current = 'Ui'
 
 <ElementCard@MDCard>:
     text: ''
