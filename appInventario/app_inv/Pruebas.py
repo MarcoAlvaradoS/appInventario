@@ -54,7 +54,7 @@ class ScreenManager1(ScreenManager):
             {
                 "viewclass": "OneLineListItem",
                 "text": f"{i}",
-                "height": dp(56),
+                "adaptive_size": True,
                 "on_release": lambda x=f"{i}": self.set_item(x, dropdown, self.menu_dep if dpn == 1 else self.menu_cat if dpn == 2 else self.menu_subcat),
             } for i in clase
         ]
